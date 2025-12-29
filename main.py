@@ -67,8 +67,8 @@ def format_message(root_text, words):
         # Line 3: Example Hebrew
         ex = word.get('example')
         if ex and isinstance(ex, dict):
-             lines.append(f"🗣️ Example: 🇮🇱 {ex.get('hebrew', '')}")
-             # Line 4: Example English (New line)
+             lines.append(f"🇮🇱 Example: {ex.get('hebrew', '')}")
+             # Line 4: Example English
              lines.append(f"🇬🇧 {ex.get('english', '')}")
         
         lines.append("\n") # Blank line between items
