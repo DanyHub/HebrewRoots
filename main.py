@@ -63,7 +63,7 @@ def format_message(root, words, is_enriched=False):
         translit = word.get('transliteration', '')
         type_info = word.get('type', '')
         
-        lines.append(f"Hebrew word: *{hebrew}*")
+        lines.append(f"*{hebrew}*")
         if type_info:
              lines.append(f"Description of type: {type_info}")
         if translit:

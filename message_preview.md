@@ -1,43 +1,43 @@
 Daily Shoresh: *ה.פ.כ*
 
-Hebrew word: *לַהֲפךֹ אֶת*
+*לַהֲפךֹ אֶת*
 Translation: renverser lahafokhe ète modifier
 
-Hebrew word: *לְ הֵ הָפֵך*
+*לְ הֵ הָפֵך*
 Translation: se transformer léheyhapèkhe
 
-Hebrew word: *לְ הִ תְ  ַהךֵ*
-Translation: se renverser lehit hapèkhe פּ
+*לְ הִ תְ ַהפֵּך*
+Translation: se renverser lehit'hapèkhe
 
-Hebrew word: *הָ פך*
-Translation: contraire hafoukhe וּ inverse
+*הָ פוּך*
+Translation: contraire hafoukhe inverse
 
-Hebrew word: * ִה ך*
-Translation: inversion hipoukhe וּפּ contraste
+*ִה פּוּך*
+Translation: inversion hipoukhe contraste
 
-Hebrew word: *הָ פִיך*
+*הָ פִיך*
 Translation: convertible hafikhe
 
-Hebrew word: *הֲ פִיכָה*
+*הֲ פִיכָה*
 Translation: révolution hafikha renversement
 
-Hebrew word: *לְ הֶפֶך*
+*לְ הֶפֶך*
 Translation: au contraire lehèfèkhe
 
-Hebrew word: *הֲפַ  ְכךַ*
-Translation: lunatique hafakhepakhe פּ versatile
+*הֲפַ ְכפַּך*
+Translation: lunatique hafakhepakhe versatile
 
-Hebrew word: *הִ תְ  ַה כְ ת*
-Translation: renversement hit hapekhoute וּ פּ retournement
+*הִ תְ ַה פְּכ וּת*
+Translation: renversement hit'hapekhoute retournement
 
-Hebrew word: *מַ  ְהךָ*
-Translation: boulversement mahpakhe פּ
+*מַ ְהפָּך*
+Translation: boulversement mahpakhe
 
-Hebrew word: *מַ  ְהכֵָה*
-Translation: révolution mahpekhah פּ
+*מַ ְהפֵּכָה*
+Translation: révolution mahpekhah
 
-Hebrew word: *מַ  ְה כְָן*
-Translation: révolutionnaire mahpekhane פּ
+*מַ ְה פְּכָן*
+Translation: révolutionnaire mahpekhane
 
-Hebrew word: *מְ ֻהךָ*
-Translation: renversé mehoupakhe פּ retourné
+*מְֻהפָּך*
+Translation: renversé mehoupakhe retourné

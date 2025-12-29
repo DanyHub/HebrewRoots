@@ -14,22 +14,22 @@
       "description": "se transformer léheyhapèkhe"
     },
     {
-      "hebrew_vocalized": "לְ הִ תְ  ַהךֵ",
+      "hebrew_vocalized": "לְ הִ תְ ַהפֵּך",
       "hebrew_plain": "להתהפך",
-      "latin": "se renverser lehit hapèkhe פּ",
-      "description": "se renverser lehit hapèkhe פּ"
+      "latin": "se renverser lehit'hapèkhe",
+      "description": "se renverser lehit'hapèkhe"
     },
     {
-      "hebrew_vocalized": "הָ פך",
+      "hebrew_vocalized": "הָ פוּך",
       "hebrew_plain": "הפוך",
-      "latin": "contraire hafoukhe וּ inverse",
-      "description": "contraire hafoukhe וּ inverse"
+      "latin": "contraire hafoukhe inverse",
+      "description": "contraire hafoukhe inverse"
     },
     {
-      "hebrew_vocalized": " ִה ך",
+      "hebrew_vocalized": "ִה פּוּך",
       "hebrew_plain": "היפוך",
-      "latin": "inversion hipoukhe וּפּ contraste",
-      "description": "inversion hipoukhe וּפּ contraste"
+      "latin": "inversion hipoukhe contraste",
+      "description": "inversion hipoukhe contraste"
     },
     {
       "hebrew_vocalized": "הָ פִיך",
@@ -50,40 +50,40 @@
       "description": "au contraire lehèfèkhe"
     },
     {
-      "hebrew_vocalized": "הֲפַ  ְכךַ",
+      "hebrew_vocalized": "הֲפַ ְכפַּך",
       "hebrew_plain": "הפכפך",
-      "latin": "lunatique hafakhepakhe פּ versatile",
-      "description": "lunatique hafakhepakhe פּ versatile"
+      "latin": "lunatique hafakhepakhe versatile",
+      "description": "lunatique hafakhepakhe versatile"
     },
     {
-      "hebrew_vocalized": "הִ תְ  ַה כְ ת",
+      "hebrew_vocalized": "הִ תְ ַה פְּכ וּת",
       "hebrew_plain": "התהפכות",
-      "latin": "renversement hit hapekhoute וּ פּ retournement",
-      "description": "renversement hit hapekhoute וּ פּ retournement"
+      "latin": "renversement hit'hapekhoute retournement",
+      "description": "renversement hit'hapekhoute retournement"
     },
     {
-      "hebrew_vocalized": "מַ  ְהךָ",
+      "hebrew_vocalized": "מַ ְהפָּך",
       "hebrew_plain": "מהפך",
-      "latin": "boulversement mahpakhe פּ",
-      "description": "boulversement mahpakhe פּ"
+      "latin": "boulversement mahpakhe",
+      "description": "boulversement mahpakhe"
     },
     {
-      "hebrew_vocalized": "מַ  ְהכֵָה",
+      "hebrew_vocalized": "מַ ְהפֵּכָה",
       "hebrew_plain": "מהפכה",
-      "latin": "révolution mahpekhah פּ",
-      "description": "révolution mahpekhah פּ"
+      "latin": "révolution mahpekhah",
+      "description": "révolution mahpekhah"
     },
     {
-      "hebrew_vocalized": "מַ  ְה כְָן",
+      "hebrew_vocalized": "מַ ְה פְּכָן",
       "hebrew_plain": "מהפכן",
-      "latin": "révolutionnaire mahpekhane פּ",
-      "description": "révolutionnaire mahpekhane פּ"
+      "latin": "révolutionnaire mahpekhane",
+      "description": "révolutionnaire mahpekhane"
     },
     {
-      "hebrew_vocalized": "מְ ֻהךָ",
+      "hebrew_vocalized": "מְֻהפָּך",
       "hebrew_plain": "מהופך",
-      "latin": "renversé mehoupakhe פּ retourné",
-      "description": "renversé mehoupakhe פּ retourné"
+      "latin": "renversé mehoupakhe retourné",
+      "description": "renversé mehoupakhe retourné"
     }
   ]
 }

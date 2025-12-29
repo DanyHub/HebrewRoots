@@ -7,23 +7,87 @@ class PDFParser:
 
     def reverse_hebrew(self, text):
         import unicodedata
+        # Remove spaces between diacritics and letters if they exist?
+        # In the issue "מַ  ְהךָ", we see spaces. 
+        # Clean up spaces that might be artifacts between combining marks.
+        # But first, let's just reverse blindly and see if we can re-order.
+        # Actually, simpler approach for "Visual" Hebrew with diacritics:
+        # If the input is [LastChar] [Mark] [PrevChar] [Mark]...
+        # We want [FirstChar] [Mark] [NextChar] [Mark]...
+        
+        # 1. Reverse the string completely (chars).
+        # 2. But this puts marks *before* their base if they were *after* in visual? 
+        #    Note: in visual LTR, if I type "Shalom" RTL, I see "molahS".
+        #    If I have "Shin+Qamats", does it become "Qamats+Shin" (visual)? 
+        #    Usually PDF visual text is: [Shin] [Qamats] -> (extracts as) -> [Shin] [Qamats] if simple.
+        #    If reversed: [Qamats] [Shin]. This renders Qamats on the char *before* Shin (or dotted circle).
+        #    So we need [Shin] [Qamats].
+        #    This implies we should NOT reverse the [Char+Mark] cluster.
+        #    We should reverse the ORDER of the clusters.
+        
+        # My previous code did: Identify clusters, then reverse list of clusters.
+        # output: [Cluster3] [Cluster2] [Cluster1].
+        # Cluster = Base + Marks.
+        # This assumes the input `text` was [Cluster1] [Cluster2] [Cluster3] in REVERSE order?
+        # Input: `text` from pdfplumber. 
+        # If PDF is Visual LTR: "txeT werbeH"
+        # Cluster1 (Hebrew Start) is at the end of the string.
+        # So yes, reversing the list of clusters is correct.
+        
+        # The issue "מַ  ְהךָ" has spaces. 
+        # Input likely: `Kaf` `Space` `Qamats` ...
+        # My cluster logic: `current_cluster` = `Kaf`. Next char `Space`.
+        # `Space` is NOT combining. So `Kaf` is flushed.
+        # Next `Space`. Flushed.
+        # Next `Qamats` (Combining). Attached to... `Space`? Or new cluster?
+        # `unicodedata.combining(' ')` is 0.
+        # So `Qamats` starts new cluster (on dotted circle).
+        
+        # FIX: We need to ignore/merge spaces that separate a base and a mark.
+        
         clusters = []
         current_cluster = ""
+        
+        text = text.strip()
+        
+        # Pass 1: Remove spaces between Base and Mark?
+        # Regex: [Base] [Space] [Mark] -> [Base] [Mark]
+        # But we need to know what is Base and Mark.
+        
+        # Let's iterate.
         for char in text:
-            if current_cluster and unicodedata.combining(char):
+            is_combining = unicodedata.combining(char)
+            is_space = char.isspace()
+            
+            if is_combining:
+                # If current cluster ends with space, remove it?
+                if current_cluster and current_cluster[-1].isspace():
+                    current_cluster = current_cluster.rstrip()
                 current_cluster += char
             else:
                 if current_cluster:
-                    clusters.append(current_cluster)
+                     clusters.append(current_cluster)
                 current_cluster = char
+                
         if current_cluster:
             clusters.append(current_cluster)
         
-        # Reverse the clusters
-        return "".join(reversed(clusters))
+        # Filter out purely whitespace clusters if they are noise?
+        # clusters = [c for c in clusters if c.strip()] 
+        
+        # Reverse
+        reversed_text = "".join(reversed(clusters))
+        
+        # Post-processing: Collapse multiple spaces
+        reversed_text = re.sub(r'\s{2,}', ' ', reversed_text)
+        return reversed_text.strip()
 
     def _is_hebrew(self, char):
-        return '\u0590' <= char <= '\u05FF'
+        # Include Presentation Forms A and B (FB1D-FB4F, FE70-FEFF check?)
+        # FB1D-FB4F is Hebrew.
+        # 0590-05FF is Standard.
+        code = ord(char)
+        return (0x0590 <= code <= 0x05FF) or (0xFB1D <= code <= 0xFB4F)
 
     def parse_page(self, page_num):
         """Parses a specific page (0-indexed) and returns the root and words."""
@@ -83,19 +147,19 @@ class PDFParser:
                     # 3. Contains Latin Only: definition extension.
 
                     has_hebrew = any(self._is_hebrew(c) for c in line)
-                    latin_part = re.sub(r'[\u0590-\u05FF\s"\']+', ' ', re.sub(r'[\u0590-\u05FF]+', '', line)).strip()
                     
-                    # Extract raw Hebrew parts for reversal
-                    hebrew_matches = re.findall(r'[\u0590-\u05FF\u0591-\u05c7\s"]+', line)
-                    # Note: \u0591-\u05c7 are Nikkud (Vowels) + others.
+                    # Regex to remove Hebrew chars (Standard + Presentation Forms + Nikkud)
+                    # Range: \u0590-\u05FF and \uFB1D-\uFB4F
+                    latin_part = re.sub(r'[\u0590-\u05FF\uFB1D-\uFB4F]+', '', line).strip()
+                    # Also cleanup stray quotes/punctuation acting as Hebrew leftovers
+                    latin_part = re.sub(r'\s+', ' ', latin_part)
+                    
+                    # Extract raw Hebrew parts
+                    # Capture Standard, Presentation, and Nikkud (0591-05C7 are inside 0590-05FF)
+                    hebrew_matches = re.findall(r'[\u0590-\u05FF\uFB1D-\uFB4F\s"]+', line)
                     
                     full_hebrew_str = ""
                     if has_hebrew:
-                        # Join matches. Visual order usually implies distinct blocks.
-                        # "ète תאֶ" -> Hebrew is at end.
-                        # Simple join and reverse per line seems to have worked for order, key is graphemes.
-                        # We just extract the 'Hebrew substring' from the line.
-                        # We assume the Hebrew part is contiguous or we just join them.
                         raw_hebw = "".join(match for match in hebrew_matches if any(self._is_hebrew(c) for c in match))
                         full_hebrew_str = self.reverse_hebrew(raw_hebw.strip())
 
