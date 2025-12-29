@@ -13,8 +13,50 @@ class Enricher:
             print("WARNING: GEMINI_API_KEY not set.")
             self.model = None
         else:
+            self.model = self._resolve_model(api_key)
+
+    def _resolve_model(self, api_key):
+        """
+        Dynamically resolves the best available Gemini model.
+        Logs available models for debugging.
+        """
+        try:
+            print("Enricher: Resolving available models...")
             genai.configure(api_key=api_key)
-            self.model = genai.GenerativeModel('gemini-pro')
+            all_models = [m for m in genai.list_models()]
+            content_models = [m.name for m in all_models if 'generateContent' in m.supported_generation_methods]
+            
+            print(f"Enricher: Available 'generateContent' models: {content_models}")
+            
+            # Prioritized list of preferences
+            # 1. Flash (Fast, Cheap/Free)
+            # 2. Pro (Standard)
+            # 3. Any other
+            preferences = [
+                'models/gemini-1.5-flash',
+                'models/gemini-1.5-flash-latest',
+                'models/gemini-1.5-flash-001',
+                'models/gemini-pro',
+                'models/gemini-1.0-pro'
+            ]
+            
+            for pref in preferences:
+                if pref in content_models:
+                    print(f"Enricher: Selected preferred model '{pref}'")
+                    return genai.GenerativeModel(pref)
+            
+            # Fallback: Just take the first one available
+            if content_models:
+                print(f"Enricher: Fallback to first available model '{content_models[0]}'")
+                return genai.GenerativeModel(content_models[0])
+            
+            # Last resort if list is empty (shouldn't happen if key is valid)
+            print("Enricher: No specific models found in list. Defaulting to 'gemini-pro'")
+            return genai.GenerativeModel('gemini-pro')
+
+        except Exception as e:
+            print(f"Enricher: Failed to list models ({e}). Defaulting to 'gemini-pro'.")
+            return genai.GenerativeModel('gemini-pro')
 
     def get_words_for_root(self, root):
         """
