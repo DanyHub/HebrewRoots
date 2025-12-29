@@ -33,52 +33,51 @@ def send_telegram_message(message):
     except Exception as e:
         print(f"Failed to send Telegram message: {e}")
 
-def format_message(root, words, is_enriched=False):
-    lines = [f"Daily Shoresh: *{root}*"]
-    if is_enriched:
-        lines.append("(Enriched with external sources)")
+def format_message(root_text, words):
+    """
+    Formats the daily shoresh message for Telegram using Gemini data.
+    """
+    lines = [f"Daily Shoresh: *{root_text}*\n"]
     
-    lines.append("")
-    
+    if not words:
+        lines.append("(No words found for this root today. Check back tomorrow!)")
+        return "\n".join(lines)
+
     for i, word in enumerate(words):
-        # Determine highlighting
-        # User asked for color, we use Bold as fallback.
-        # We need to identify the root in the Hebrew word?
-        # That's hard to do programmatically without complex morphology.
-        # So we just bold the whole Hebrew word for now or just the label.
+        # Gemini Structure:
+        # {
+        #   "hebrew": "...",
+        #   "transliteration": "...",
+        #   "type": "...",
+        #   "translation": "...",
+        #   "example": {"hebrew": "...", "english": "..."}
+        # }
         
-        # Word Structure: 
-        # Hebrew: <word>
-        # Description: <desc>
-        # Transliteration: <trans> (if available, mostly for enriched)
-        # Translation: <trans> (from enricher/pdf)
-        
-        hebrew = word.get('hebrew_vocalized') or word.get('hebrew', '')
-        # Clean latin/desc
-        latin = word.get('latin', '') or word.get('translation', '')
-        desc = word.get('description', '') 
-        # Note: In PDF parser, 'latin' == 'description'.
-        # In Enricher: 'translation' is used.
-        
+        hebrew = word.get('hebrew', 'N/A')
         translit = word.get('transliteration', '')
-        type_info = word.get('type', '')
+        pos = word.get('type', 'N/A')
+        definition = word.get('translation', 'N/A')
         
-        lines.append(f"*{hebrew}*")
-        if type_info:
-             lines.append(f"Description of type: {type_info}")
-        if translit:
-            lines.append(f"Transliteration: {translit}")
+        # Word Header
+        lines.append(f"*{hebrew}* ({translit})")
         
-        # Translation is often mixed with Latin in PDF, or separate in Enricher
-        translation = latin
-        if not translation and 'translation' in word:
-            translation = word['translation']
-            
-        lines.append(f"Translation: {translation}")
-        lines.append("")
+        # Part of Speech
+        lines.append(f"🏷️ Part of Speech: {pos}")
+        
+        # Definition
+        lines.append(f"📖 Definition:\n{definition}")
+        
+        # Example
+        ex = word.get('example')
+        if ex and isinstance(ex, dict):
+             lines.append(f"🗣️ Example:")
+             lines.append(f"🇮🇱 {ex.get('hebrew', '')}")
+             lines.append(f"🇬🇧 {ex.get('english', '')}")
+        
+        lines.append("\n" + "-"*15 + "\n")
         
         if i >= 15: # Limit message length
-            lines.append("... (Trunkated)")
+            lines.append("... (Truncated)")
             break
             
     return "\n".join(lines)
@@ -123,29 +122,17 @@ def main():
     root = found_data['root']
     words = found_data['words']
     
-    # print(f"Found Root: {root} with {len(words)} words.") 
-    print(f"Found Root (length: {len(words)} words)")
+    print(f"Found Root in PDF: {root}")
     
-    is_enriched = False
-    if len(words) < 10:
-        print("Fewer than 10 words. Enriching...")
-        extra_words = enricher.get_words_for_root(root)
-        # Append extra words
-        # Need to normalize keys
-        normalized_extra = []
-        for w in extra_words:
-            normalized_extra.append({
-                'hebrew_vocalized': w.get('hebrew'),
-                'latin': w.get('translation'),
-                'type': w.get('type'),
-                'transliteration': w.get('transliteration')
-            })
-        
-        words.extend(normalized_extra)
-        is_enriched = True
-
+    # Gemini Enrichment
+    print("Generating content with Gemini...")
+    words = enricher.get_words_for_root(root)
+    
+    if not words:
+        print("Warning: Gemini returned no words. Sending empty message.")
+    
     # Format Message
-    msg = format_message(root, words, is_enriched)
+    msg = format_message(root, words)
     
     # Write message to file for verification
     with open("message_preview.md", "w", encoding="utf-8") as f:

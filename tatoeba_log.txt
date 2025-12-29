@@ -1,0 +1,15 @@
+Fetching https://tatoeba.org/en/sentences/search?query=להתחיל&from=heb&to=eng
+Status: 200
+Found 10 sentences.
+--- 0 ---
+HE: {{vm.sentence.furigana.info_message}}{{vm.sentence.text}}
+TR: {{translation.furigana.info_message}}{{translation.text}}Existing sentence #{{::translation.id}} has been added as a translation.
+TR: {{translation.furigana.info_message}}{{translation.text}}Existing sentence #{{::translation.id}} has been added as a translation.
+--- 1 ---
+HE: {{vm.sentence.furigana.info_message}}{{vm.sentence.text}}
+TR: {{translation.furigana.info_message}}{{translation.text}}Existing sentence #{{::translation.id}} has been added as a translation.
+TR: {{translation.furigana.info_message}}{{translation.text}}Existing sentence #{{::translation.id}} has been added as a translation.
+--- 2 ---
+HE: {{vm.sentence.furigana.info_message}}{{vm.sentence.text}}
+TR: {{translation.furigana.info_message}}{{translation.text}}Existing sentence #{{::translation.id}} has been added as a translation.
+TR: {{translation.furigana.info_message}}{{translation.text}}Existing sentence #{{::translation.id}} has been added as a translation.

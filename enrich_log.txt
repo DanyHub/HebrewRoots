@@ -1,1 +1,18 @@
 Fetching https://www.pealim.com/search/?q=הפכ
+Fetching https://www.pealim.com/search/?q=תחל
+Fetching https://www.pealim.com/search/?q=תחל
+Found 1 entries
+Fetching https://www.pealim.com/search/?q=תחל
+Found 1 entries
+Fetching https://www.pealim.com/search/?q=תחל
+Found 1 entries
+Fetching https://www.pealim.com/search/?q=תחל
+Found 1 entries
+Fetching https://www.pealim.com/search/?q=תחל
+Found 1 entries
+Tatoeba Fetching: https://tatoeba.org/en/sentences/search?query=להחל&from=heb&to=eng
+Tatoeba Block Found: False
+Fetching https://www.pealim.com/search/?q=תחל
+Found 1 entries
+Tatoeba Fetching: https://tatoeba.org/en/sentences/search?query=להחל&from=heb&to=eng
+Tatoeba Block Found: False

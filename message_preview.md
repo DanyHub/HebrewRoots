@@ -1,43 +1,26 @@
-Daily Shoresh: *ה.פ.כ*
+Daily Shoresh: *ת.ח.ל*
+(Enriched with external sources)
 
-*לַהֲפךֹ אֶת*
-Translation: renverser lahafokhe ète modifier
+*לְהָחֵל* (tachel)
+🏷️ Part of Speech: verb – HIF'IL
 
-*לְ הֵ הָפֵך*
-Translation: se transformer léheyhapèkhe
+📖 Definition:
+to start, to begin (lit.)
 
-*לְ הִ תְ ַהפֵּך*
-Translation: se renverser lehit'hapèkhe
+---------------
 
-*הָ פוּך*
-Translation: contraire hafoukhe inverse
+*תָּחֵל* (tachel)
+🏷️ Part of Speech: Future tense, 2nd person, masculine, singular
 
-*ִה פּוּך*
-Translation: inversion hipoukhe contraste
+📖 Definition:
+you m. sg. will start
 
-*הָ פִיך*
-Translation: convertible hafikhe
+---------------
 
-*הֲ פִיכָה*
-Translation: révolution hafikha renversement
+*תָּחֵל* (tachel)
+🏷️ Part of Speech: Future tense, 3rd person, feminine, singular
 
-*לְ הֶפֶך*
-Translation: au contraire lehèfèkhe
+📖 Definition:
+she / it will start
 
-*הֲפַ ְכפַּך*
-Translation: lunatique hafakhepakhe versatile
-
-*הִ תְ ַה פְּכ וּת*
-Translation: renversement hit'hapekhoute retournement
-
-*מַ ְהפָּך*
-Translation: boulversement mahpakhe
-
-*מַ ְהפֵּכָה*
-Translation: révolution mahpekhah
-
-*מַ ְה פְּכָן*
-Translation: révolutionnaire mahpekhane
-
-*מְֻהפָּך*
-Translation: renversé mehoupakhe retourné
+---------------
