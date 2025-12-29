@@ -44,40 +44,38 @@ def format_message(root_text, words):
         return "\n".join(lines)
 
     for i, word in enumerate(words):
-        # Gemini Structure:
+        # Gemini Structure matches user request:
         # {
         #   "hebrew": "...",
         #   "transliteration": "...",
-        #   "type": "...",
         #   "translation": "...",
         #   "example": {"hebrew": "...", "english": "..."}
         # }
         
         hebrew = word.get('hebrew', 'N/A')
         translit = word.get('transliteration', '')
-        pos = word.get('type', 'N/A')
+        # pos = word.get('type', 'N/A') # User format didn't show POS, skipping for now or adding softly?
+        # User example: "1. לְהַמְלִיץ (Lehamlitz)"
+        
         definition = word.get('translation', 'N/A')
         
-        # Word Header
-        lines.append(f"*{hebrew}* ({translit})")
+        # 1. Word (Transliteration)
+        lines.append(f"{i+1}. {hebrew} ({translit})")
         
-        # Part of Speech
-        lines.append(f"🏷️ Part of Speech: {pos}")
-        
-        # Definition
-        lines.append(f"📖 Definition:\n{definition}")
+        # English Translation: ...
+        lines.append(f"English Translation: {definition}")
         
         # Example
         ex = word.get('example')
         if ex and isinstance(ex, dict):
-             lines.append(f"🗣️ Example:")
-             lines.append(f"🇮🇱 {ex.get('hebrew', '')}")
-             lines.append(f"🇬🇧 {ex.get('english', '')}")
+             lines.append("")
+             lines.append(f"Hebrew Sentence: {ex.get('hebrew', '')}")
+             lines.append("")
+             lines.append(f"Sentence Translation: {ex.get('english', '')}")
         
-        lines.append("\n" + "-"*15 + "\n")
+        lines.append("\n") # Spacing between items
         
-        if i >= 15: # Limit message length
-            lines.append("... (Truncated)")
+        if i >= 10: # Limit message length usually 10 is good
             break
             
     return "\n".join(lines)
