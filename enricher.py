@@ -14,7 +14,7 @@ class Enricher:
             self.model = None
         else:
             genai.configure(api_key=api_key)
-            self.model = genai.GenerativeModel('gemini-1.5-flash-latest')
+            self.model = genai.GenerativeModel('gemini-pro')
 
     def get_words_for_root(self, root):
         """
