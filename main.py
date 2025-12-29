@@ -44,7 +44,7 @@ def format_message(root_text, words):
         return "\n".join(lines)
 
     for i, word in enumerate(words):
-        # Gemini Structure matches user request:
+        # Gemini Structure:
         # {
         #   "hebrew": "...",
         #   "transliteration": "...",
@@ -54,28 +54,26 @@ def format_message(root_text, words):
         
         hebrew = word.get('hebrew', 'N/A')
         translit = word.get('transliteration', '')
-        # pos = word.get('type', 'N/A') # User format didn't show POS, skipping for now or adding softly?
-        # User example: "1. לְהַמְלִיץ (Lehamlitz)"
-        
         definition = word.get('translation', 'N/A')
         
-        # 1. Word (Transliteration)
-        lines.append(f"{i+1}. {hebrew} ({translit})")
+        # Line 1: Word (Transliteration)
+        # Note: User didn't ask for numbering "1.", just the word.
+        # But maybe numbering is still good? User sample: "שָׁקַע (shaka)" - No number.
+        lines.append(f"*{hebrew}* ({translit})")
         
-        # English Translation: ...
-        lines.append(f"English Translation: {definition}")
+        # Line 2: Definition
+        lines.append(f"📖 Definition: {definition}")
         
-        # Example
+        # Line 3: Example Hebrew
         ex = word.get('example')
         if ex and isinstance(ex, dict):
-             lines.append("")
-             lines.append(f"Hebrew Sentence: {ex.get('hebrew', '')}")
-             lines.append("")
-             lines.append(f"Sentence Translation: {ex.get('english', '')}")
+             lines.append(f"🗣️ Example: 🇮🇱 {ex.get('hebrew', '')}")
+             # Line 4: Example English (New line)
+             lines.append(f"🇬🇧 {ex.get('english', '')}")
         
-        lines.append("\n") # Spacing between items
+        lines.append("\n") # Blank line between items
         
-        if i >= 10: # Limit message length usually 10 is good
+        if i >= 10: 
             break
             
     return "\n".join(lines)
