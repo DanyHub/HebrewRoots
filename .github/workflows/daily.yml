@@ -25,7 +25,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests beautifulsoup4 pdfplumber
+          pip install -r requirements.txt
 
       - name: Run Bot
         env:
