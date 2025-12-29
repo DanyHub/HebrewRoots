@@ -128,8 +128,16 @@ def main():
     print("Generating content with Gemini...")
     words = enricher.get_words_for_root(root)
     
+    if words is None:
+        error_msg = ("⚠️ **Configuration Error** ⚠️\n\n"
+                     "The Gemini API Key is missing or invalid.\n"
+                     "Please check your GitHub Secrets and ensure `GEMINI_API_KEY` is set correctly.")
+        print(error_msg)
+        send_telegram_message(error_msg)
+        return
+
     if not words:
-        print("Warning: Gemini returned no words. Sending empty message.")
+        print("Warning: Gemini returned no words (Empty List). Sending fallback message.")
     
     # Format Message
     msg = format_message(root, words)

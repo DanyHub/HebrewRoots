@@ -22,7 +22,8 @@ class Enricher:
         Returns a list of dictionaries.
         """
         if not self.model:
-            return []
+            print("Enricher: No model available (Missing API Key).")
+            return None # Explicit None to indicate failure vs empty list
             
         # Clean root
         clean_root = re.sub(r'[\.\s]', '', root)
