@@ -136,6 +136,13 @@ def main():
         send_telegram_message(error_msg)
         return
 
+    if isinstance(words, str):
+        # Specific Gemini Error
+        error_msg = f"⚠️ **Generation Error** ⚠️\n\nFailed to generate content.\nError details: `{words}`"
+        print(error_msg)
+        send_telegram_message(error_msg)
+        return
+
     if not words:
         print("Warning: Gemini returned no words (Empty List). Sending fallback message.")
     

@@ -59,11 +59,12 @@ class Enricher:
             return data
             
         except Exception as e:
-            print(f"Gemini Error: {e}")
+            error_msg = f"GenError: {str(e)}"
+            print(error_msg)
             # Log full error for debugging
             with open("enrich_log.txt", "a", encoding="utf-8") as f:
                 f.write(f"Gemini Request Failed for {root}: {e}\n")
-            return []
+            return error_msg
 
 if __name__ == "__main__":
     # Test run (requires env var set via CLI on run)
